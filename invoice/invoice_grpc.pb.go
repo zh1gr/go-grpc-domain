@@ -18,86 +18,86 @@ import (
 // Requires gRPC-Go v1.32.0 or later.
 const _ = grpc.SupportPackageIsVersion7
 
-// MessageClient is the client API for Message service.
+// InvoiceClient is the client API for Invoice service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
-type MessageClient interface {
+type InvoiceClient interface {
 	Create(ctx context.Context, in *CreateRequest, opts ...grpc.CallOption) (*CreateResponse, error)
 }
 
-type messageClient struct {
+type invoiceClient struct {
 	cc grpc.ClientConnInterface
 }
 
-func NewMessageClient(cc grpc.ClientConnInterface) MessageClient {
-	return &messageClient{cc}
+func NewInvoiceClient(cc grpc.ClientConnInterface) InvoiceClient {
+	return &invoiceClient{cc}
 }
 
-func (c *messageClient) Create(ctx context.Context, in *CreateRequest, opts ...grpc.CallOption) (*CreateResponse, error) {
+func (c *invoiceClient) Create(ctx context.Context, in *CreateRequest, opts ...grpc.CallOption) (*CreateResponse, error) {
 	out := new(CreateResponse)
-	err := c.cc.Invoke(ctx, "/Message/Create", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/Invoice/Create", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-// MessageServer is the server API for Message service.
-// All implementations must embed UnimplementedMessageServer
+// InvoiceServer is the server API for Invoice service.
+// All implementations must embed UnimplementedInvoiceServer
 // for forward compatibility
-type MessageServer interface {
+type InvoiceServer interface {
 	Create(context.Context, *CreateRequest) (*CreateResponse, error)
-	mustEmbedUnimplementedMessageServer()
+	mustEmbedUnimplementedInvoiceServer()
 }
 
-// UnimplementedMessageServer must be embedded to have forward compatible implementations.
-type UnimplementedMessageServer struct {
+// UnimplementedInvoiceServer must be embedded to have forward compatible implementations.
+type UnimplementedInvoiceServer struct {
 }
 
-func (UnimplementedMessageServer) Create(context.Context, *CreateRequest) (*CreateResponse, error) {
+func (UnimplementedInvoiceServer) Create(context.Context, *CreateRequest) (*CreateResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Create not implemented")
 }
-func (UnimplementedMessageServer) mustEmbedUnimplementedMessageServer() {}
+func (UnimplementedInvoiceServer) mustEmbedUnimplementedInvoiceServer() {}
 
-// UnsafeMessageServer may be embedded to opt out of forward compatibility for this service.
-// Use of this interface is not recommended, as added methods to MessageServer will
+// UnsafeInvoiceServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to InvoiceServer will
 // result in compilation errors.
-type UnsafeMessageServer interface {
-	mustEmbedUnimplementedMessageServer()
+type UnsafeInvoiceServer interface {
+	mustEmbedUnimplementedInvoiceServer()
 }
 
-func RegisterMessageServer(s grpc.ServiceRegistrar, srv MessageServer) {
-	s.RegisterService(&Message_ServiceDesc, srv)
+func RegisterInvoiceServer(s grpc.ServiceRegistrar, srv InvoiceServer) {
+	s.RegisterService(&Invoice_ServiceDesc, srv)
 }
 
-func _Message_Create_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _Invoice_Create_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(CreateRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(MessageServer).Create(ctx, in)
+		return srv.(InvoiceServer).Create(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/Message/Create",
+		FullMethod: "/Invoice/Create",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(MessageServer).Create(ctx, req.(*CreateRequest))
+		return srv.(InvoiceServer).Create(ctx, req.(*CreateRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-// Message_ServiceDesc is the grpc.ServiceDesc for Message service.
+// Invoice_ServiceDesc is the grpc.ServiceDesc for Invoice service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
-var Message_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "Message",
-	HandlerType: (*MessageServer)(nil),
+var Invoice_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "Invoice",
+	HandlerType: (*InvoiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
 			MethodName: "Create",
-			Handler:    _Message_Create_Handler,
+			Handler:    _Invoice_Create_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

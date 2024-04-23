@@ -17,6 +17,6 @@ message CreateResponse {
   bytes docx = 2;
 }
 
-service Message {
+service Invoice {
   rpc Create(CreateRequest) returns (CreateResponse);
 }
