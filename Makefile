@@ -7,4 +7,6 @@ generate_grpc_invoice:
 	--go-grpc_out=invoice \
 	--go-grpc_opt=paths=source_relative \
 	invoice.proto
-	make go_mod
+
+.PHONY: update
+update: generate_grpc_invoice go_mod
