@@ -53,4 +53,4 @@ go get github.com/zh1gr/go-grpc-domain
 
 ---
 
-Based by tutorial from _Maximilien Andile_ [video](https://youtu.be/gbrPMv_GuQY?)
+Based by tutorial from _Maximilien Andile_ [video](https://youtu.be/gbrPMv_GuQY)
